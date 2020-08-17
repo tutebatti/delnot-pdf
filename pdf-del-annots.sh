@@ -10,12 +10,12 @@
 #			                         
 ###########################
 
-# Check if file is a pdf file
+# Checking if file is a pdf file
 
 mtype=$(file --mime-type -b "$1")
 
 if ! echo $mtype | grep -q pdf ; then
-	echo "The provided file in not a pdf. Script is aborted."
+	echo "The provided file is not a pdf. Script is aborted."
 	exit 0
 fi
 
