@@ -1,2 +1,6 @@
 # pdf-del-annots
-Delete all annotations from a pdf file (e.g. before sharing).
+Bash script to delete all annotations from a pdf file (e.g. before sharing).
+
+Make file executable.
+
+usage: pdf-del-annots file.pdf
