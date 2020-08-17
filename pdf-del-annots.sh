@@ -47,7 +47,7 @@ read -p "Do you want to delete the original pdf-file? - Input YES ist required! 
 
 if [ "$delconform" == "YES" ]
 
-# zweiter, eigentlicher run, falls Antwort "YES"
+# delete original file if input = "YES"
 
 	then
 		rm "$1"
