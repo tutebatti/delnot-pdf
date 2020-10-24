@@ -1,13 +1,15 @@
 #!/bin/bash
 
 ###########################
-#						     
-#	Cleans pdfs of annotations		
-#			                          
-#  1) pdf is uncompressed,			  
-#  2) stripped of annotations,                    
-#  3) and compressed again			 
-#			                         
+#
+#	Cleans pdf files from annotations
+#
+#  1) pdf is uncompressed,
+#  2) stripped of annotations,
+#  3) and compressed again
+#
+# Requirement: pdftk (https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/)
+#
 ###########################
 
 # Checking if file is a pdf file
@@ -19,35 +21,22 @@ if ! echo $mtype | grep -q pdf ; then
 	exit 0
 fi
 
-# 1) pdf is uncompressed
-
-echo "Pdf-file $1 is being uncompressed." 
-
+echo "Pdf file $1 is being uncompressed."
 pdftk "$1" output ${1%.*}_uc.pdf uncompress
 
-# 2) uncompressed pdf is stripped of annotations
-
-echo "All annotations in the file are being deleted." 
-
+echo "All annotations in the file are being deleted."
 LANG=C sed -n '/^\/Annots/!p' ${1%.*}_uc.pdf > ${1%.*}_uc_stripped.pdf
 
-# 3) stripped pdf is compressed again
-
 echo "Result is saved as ${1#.pdf}_stripped.pdf ."
-
 pdftk ${1%.*}_uc_stripped.pdf output ${1%.*}_stripped.pdf compress
 
 echo "Temporary files are deleted."
-
 rm ${1%.*}_uc.pdf
-
 rm ${1%.*}_uc_stripped.pdf
 
-read -p "Do you want to delete the original pdf-file? - Input YES ist required! - " delconform
+read -p "Do you want to delete the original pdf-file? - Input \"YES\" ist required! - " confirm_del
 
-if [ "$delconform" == "YES" ]
-
-# delete original file if input = "YES"
+if [ "$confirm_del" == "YES" ]
 
 	then
 		rm "$1"
